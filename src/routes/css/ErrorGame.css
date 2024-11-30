@@ -1,0 +1,126 @@
+.errorGame {
+  font-family: "D2coding", "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #202231;
+  gap: 20px;
+}
+
+/* 문제 가이드 & 타이머 */
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+.top-title {
+  padding-left: 8vw;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+/* 문제 부분 */
+pre {
+  position: relative;
+  width: 65%;
+  height: 600px;
+  background-color: #2d2d2d;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 3px rgb(114, 7, 164);
+  overflow: auto;
+}
+
+.start-button {
+  font-family: "D2coding", "Roboto", sans-serif;
+  position: absolute; /* 중앙에 배치 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: rgba(45, 45, 45, 0.8);
+  color: white;
+  border: solid 1px white;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.language-java {
+  overflow-y: auto; /* 세로 스크롤 */
+  background: #2d2d2d;
+  color: white;
+  border-radius: 4px;
+}
+
+/* 스크롤바 스타일 */
+.language-java {
+  scrollbar-width: thin; /* 얇은 스크롤바 */
+  scrollbar-color: rgb(114, 7, 164) rgb(0, 0, 0);
+}
+
+/* 정답 입력 부분 */
+.input-field {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Y축 중앙 정렬 */
+  gap: 20px;
+}
+
+.input-field input[type="text"] {
+  width: 85px;
+  height: 38px;
+  color: rgb(162, 103, 190);
+  border: solid 3px rgb(114, 7, 164);
+  border-radius: 20px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.input-button {
+  width: 70px;
+  height: 34px;
+  color: white;
+  border-radius: 20px;
+  background-color: rgb(145, 23, 202);
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  color: white;
+}
+
+/* 해설 부분 */
+.explanation {
+  border: solid 2px white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.label {
+  color: #ffffff;
+}
+
+.value {
+  color: #ffd700;
+  font-weight: normal;
+}
