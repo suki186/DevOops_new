@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Redux 상태 가져오기
 import timeAgo from "../utils/timeAgo";
 import LikeSection from "../components/LikeSection";
@@ -10,17 +10,27 @@ const PostDetailPage = ({ posts, setPosts, loggedInUser }) => {
   const users = useSelector((state) => state.users); // Redux에서 사용자 정보 가져오기
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = posts.find((p) => p.id === Number(id));
+  const location = useLocation();
+
+  // `location.state`에서 boardType을 가져오거나 기본값 설정
+  const boardType = location.state?.boardType || "free";
+
+  // 게시글 필터링
+  const post = useMemo(() => {
+    return posts.find((p) => p.id === Number(id) && p.boardType === boardType);
+  }, [id, boardType, posts]);
 
   const [comments, setComments] = useState([]);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // 삭제 모달 표시 상태
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Redux에서 작성자 정보 매핑
   const author = post && users.find((user) => user.id === post.authorId);
 
   useEffect(() => {
     if (post) {
-      const savedComments = localStorage.getItem(`comments-${post.id}`);
+      const savedComments = localStorage.getItem(
+        `comments-${boardType}-${post.id}`
+      );
       if (savedComments) {
         try {
           setComments(JSON.parse(savedComments));
@@ -30,21 +40,24 @@ const PostDetailPage = ({ posts, setPosts, loggedInUser }) => {
         }
       }
     }
-  }, [post]);
+  }, [post, boardType]);
 
   useEffect(() => {
     if (post && comments.length > 0) {
-      localStorage.setItem(`comments-${post.id}`, JSON.stringify(comments));
+      localStorage.setItem(
+        `comments-${boardType}-${post.id}`,
+        JSON.stringify(comments)
+      );
     }
-  }, [comments, post]);
+  }, [comments, post, boardType]);
 
   if (!post) return <div>게시글을 찾을 수 없습니다.</div>;
 
   // 게시글 삭제 처리
   const confirmDelete = () => {
     setPosts((prevPosts) => prevPosts.filter((p) => p.id !== post.id));
-    localStorage.removeItem(`comments-${post.id}`);
-    navigate(`/board/${post.boardType}`);
+    localStorage.removeItem(`comments-${boardType}-${post.id}`);
+    navigate(`/board/${boardType}`);
     setShowDeleteModal(false);
   };
 
@@ -93,11 +106,14 @@ const PostDetailPage = ({ posts, setPosts, loggedInUser }) => {
       <LikeSection
         loggedInUser={loggedInUser}
         postId={post.id}
+        boardType={boardType} // boardType 전달
         setPosts={setPosts}
       />
+
       {/* 댓글 섹션 */}
       <CommentSection
         postId={post.id}
+        boardType={boardType} // 올바른 boardType 전달
         comments={comments}
         setComments={setComments}
         loggedInUser={loggedInUser}
