@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { initializeState } from "./utils/initializeState";
 import { scheduleMidnightReset } from "./utils/resetScoresMidnight";
+import ScrollToTop from "./utils/ScrollTop";
 
 initializeState(); // 시작 시 Redux 동기화
 scheduleMidnightReset(); // 자정에 점수 초기화
@@ -19,6 +20,7 @@ root.render(
   //<React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop />
       <App />
     </BrowserRouter>
   </Provider>
