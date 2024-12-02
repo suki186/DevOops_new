@@ -11,16 +11,16 @@ const Footer = () => {
             랭킹
           </Link>
           <Link to="/challenge" className="footer-link">
-            오늘의 챌린지
+            타이핑
           </Link>
           <Link to="/findError" className="footer-link">
-            오류 찾기
+            오류찾기
           </Link>
           <Link to="/board/free" className="footer-link">
             자유 게시판
           </Link>
           <Link to="/board/team" className="footer-link">
-            팀원 모집
+            팀원모집 게시판
           </Link>
         </div>
         <p className="footer-text">
