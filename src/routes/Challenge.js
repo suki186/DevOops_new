@@ -125,7 +125,7 @@ const NextLinePreview = ({ nextLineText, className = "" }) => {
     <div className="w-full max-w-5xl mt-4">
       <p className="text-xl font-mono mb-2 opacity-50">Next</p>
       <div
-        className={`relative font-mono text-2xl bg-gray-700 p-4 rounded opacity-30 overflow-x-auto`}
+        className={`relative font-mono text-2xl text-gray-100 bg-gray-700 p-4 rounded opacity-30 overflow-x-auto`}
       >
         {nextLineText}
       </div>
